@@ -1,35 +1,18 @@
 package crypto_workshop;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
 /** A collection of basic encryption methods in Java.
  * Implemented for the CryptoWorkshop of the SSK-Stiftung
  * 2015-09-05
  * @author jhermes
  */
 public class Cryptographer {
-	
-	/**
-	 * Returns the encryption of specified String with Ceasars method (rot 3) 
-	 * @param toencrypt String to encrypt
-	 * @return encrypted String
-	 */
-	public static String encryptCeasar(String toencrypt){
-		return encryptROT(toencrypt, 3);
-	}
-	
-	/**
-	 * Returns the encryption of the specified String with the ROT-(specified int) Method  
-	 * @param toencrypt String to encrypt
-	 * @param rot Value of ROT method
-	 * @return encrypted String
-	 */
-	public static String encryptROT(String toencrypt, int rot){
-		toencrypt = toencrypt.toLowerCase();
-		StringBuffer encrypted = new StringBuffer();
-		for(int i=0; i<toencrypt.length(); i++){
-			encrypted.append(encodeChar(toencrypt.charAt(i), rot));
-		}
-		return encrypted.toString();
-	}
 	
 	/**
 	 * Encodes one character with the specified ROT method
@@ -61,69 +44,28 @@ public class Cryptographer {
 		return (char) chValue;
 	}
 	
-	/**
-	 * Returns the decryption of the specified String with the ROT-(specified int) Method  
-	 * @param todecrypt String to decrypt
-	 * @param rot Value of ROT method
-	 * @return decrypted String
-	 */
-	public static String decryptROT(String todecrypt, int rot){
-		todecrypt = todecrypt.toLowerCase();
-		StringBuffer decrypted = new StringBuffer();
-		for(int i=0; i<todecrypt.length(); i++){
-			decrypted.append(decodeChar(todecrypt.charAt(i), rot));
-		}
-		return decrypted.toString();
-	}
-	
-	/** Tests all ROT decryption methods on the specfied String 
-	 * @param encoded encoded String 
-	 */
-	public static void testAllROT(String encoded){
-		for(int i=1; i<=26; i++){
-			System.out.println(decryptROT(encoded, i));
-		}
-	}
-	
-	/**
-	 * Returns the encryption of the specified String with the Vigenere Method  
-	 * @param toencrypt String to encrypt
-	 * @param key Key for Vigenere method
-	 * @return encrypted String
-	 */
-	public static String encryptVigenere(String toencrypt, String key){
-		toencrypt = toencrypt.toLowerCase();
-		key=key.toLowerCase();
-		StringBuffer encrypted = new StringBuffer();
-		for(int i=0; i<toencrypt.length();){
-			for(int j=0; j<key.length()&&i<toencrypt.length(); j++){
-				int rot = key.charAt(j)-'a';
-				encrypted.append(encodeChar(toencrypt.charAt(i), rot));
-				i++;				
+	public static void countLetters(String text){
+		Map<Character, Integer> counts = new HashMap<Character,Integer>();
+		
+		for(int i=0; i<text.length(); i++){
+			char ch = text.charAt(i);
+			Integer count = counts.get(ch);
+			if(count==null){
+				count = 0;
 			}
+			counts.put(ch, count+1);			
 		}
-		return encrypted.toString();
-	}
-	
-	
-	/**
-	 * Returns the decryption of the specified String with the Vigenere Method  
-	 * @param todecode String to encrypt
-	 * @param key Key for Vigenere method
-	 * @return decrypted String
-	 */
-	public static String decodeVigenere(String todecode, String key){
-		todecode = todecode.toLowerCase();
-		key=key.toLowerCase();
-		StringBuffer encrypted = new StringBuffer();
-		for(int i=0; i<todecode.length();){
-			for(int j=0; j<key.length()&&i<todecode.length(); j++){
-				int rot = key.charAt(j)-'a';
-				encrypted.append(decodeChar(todecode.charAt(i), rot));
-				i++;				
+		Map<Integer, List<Character>> countsInOrder = new TreeMap<Integer, List<Character>>();
+		Set<Character> keySet = counts.keySet();
+		for (Character ch : keySet) {
+			Integer count = counts.get(ch);
+			List<Character> list = countsInOrder.get(count);
+			if(list==null){
+				list = new ArrayList<Character>();
 			}
-		}
-		return encrypted.toString();
+			list.add(ch);
+			countsInOrder.put(count, list);
+		}		
+		System.out.println(countsInOrder);
 	}
-
 }

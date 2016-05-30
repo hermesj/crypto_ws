@@ -1,10 +1,10 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import crypto_workshop.Cryptographer;
+import crypto_workshop.Monoaphabetic;
+import crypto_workshop.Polyalphabetic;
 
 /**
  * Tests to test the Cryptographer class.
@@ -30,7 +30,7 @@ public class CryptoTests {
 	 */
 	@Test
 	public void testCeasar(){
-		String encryptCeasar = Cryptographer.encryptCeasar("abz");
+		String encryptCeasar = Monoaphabetic.encryptCeasar("abz");
 		System.out.println(encryptCeasar);
 	}
 
@@ -41,8 +41,8 @@ public class CryptoTests {
 	@Test 
 	public void forwardback(){
 		String toencrypt = "wirverschluesselnjetztdiesensatz";
-		String encrypted = Cryptographer.encryptROT(toencrypt, 3);
-		String decrypted = Cryptographer.decryptROT(encrypted, 3);
+		String encrypted = Monoaphabetic.encryptROT(toencrypt, 3);
+		String decrypted = Monoaphabetic.decryptROT(encrypted, 3);
 		System.out.println(encrypted);
 		System.out.println(decrypted);
 	}
@@ -54,8 +54,8 @@ public class CryptoTests {
 	@Test
 	public void decodeBruteForce(){
 		String toencrypt = "malsehenobmandashiererkennt";
-		String encrypted = Cryptographer.encryptROT(toencrypt, 15);
-		Cryptographer.testAllROT(encrypted);
+		String encrypted = Monoaphabetic.encryptROT(toencrypt, 15);
+		Monoaphabetic.testAllROT(encrypted);
 	}
 	
 	/**
@@ -64,8 +64,8 @@ public class CryptoTests {
 	@Test
 	public void encodeVigenere(){
 		String toencrypt = "malsehenobmandashiererkennt";
-		String encrypted = Cryptographer.encryptVigenere(toencrypt, "hund");
-		Cryptographer.testAllROT(encrypted);
+		String encrypted = Polyalphabetic.encryptVigenere(toencrypt, "hund");
+		Monoaphabetic.testAllROT(encrypted);
 	}
 	
 	/**
@@ -74,8 +74,14 @@ public class CryptoTests {
 	@Test
 	public void decodeVigenere(){
 		String toencrypt = "malsehenobmandashiererkennt";
-		String encrypted = Cryptographer.encryptVigenere(toencrypt, "hund");
-		String decoded = Cryptographer.decodeVigenere(encrypted, "hund");
+		String encrypted = Polyalphabetic.encryptVigenere(toencrypt, "hund");
+		String decoded = Polyalphabetic.decodeVigenere(encrypted, "hund");
 		System.out.println(decoded);
+	}
+	
+	@Test
+	public void testFreqAnalysis(){
+		String toTest = "dannwollenwirmalgenaudiesentextaufseinehaeufigkeitenuntersuchenjelaengerdabeidertextdestosprechenderduerftedasergebnisseinaberlangsamistauchmalgutoder";
+		Cryptographer.countLetters(toTest);
 	}
 }
