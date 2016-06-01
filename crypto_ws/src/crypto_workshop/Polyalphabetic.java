@@ -10,7 +10,7 @@ public class Polyalphabetic extends Cryptographer {
 	 * @return encrypted String
 	 */
 	public static String encryptVigenere(String toencrypt, String key){
-		toencrypt = toencrypt.toLowerCase();
+		toencrypt = normalize(toencrypt);
 		key=key.toLowerCase();
 		StringBuffer encrypted = new StringBuffer();
 		for(int i=0; i<toencrypt.length();){
@@ -31,7 +31,7 @@ public class Polyalphabetic extends Cryptographer {
 	 * @return decrypted String
 	 */
 	public static String decodeVigenere(String todecode, String key){
-		todecode = todecode.toLowerCase();
+		todecode = normalize(todecode);
 		key=key.toLowerCase();
 		StringBuffer encrypted = new StringBuffer();
 		for(int i=0; i<todecode.length();){

@@ -15,6 +15,31 @@ import crypto_workshop.Polyalphabetic;
  */
 public class CryptoTests {
 
+	@Test 
+	public void testCodeWordMonoAlph(){
+		String codeword = "Hundenase";
+		String toencrypt = "Dies ist der zu verschlüsselnde Text";
+		String encrypted = Monoaphabetic.encryptWithCodeWord(codeword, toencrypt);
+		String decrypted = Monoaphabetic.decryptWithCodeWord(codeword, encrypted);
+		
+		System.out.println("Originaltext:\t" + toencrypt);
+		System.out.println("Verschlüsselt:\t" + encrypted);
+		System.out.println("Entschlüsselt:\t" + decrypted);
+	}
+	
+	@Test
+	public void testGetSubAlph(){
+		String codeword = "Ähnliche";
+		Monoaphabetic.getSubstitutionAlphabet(codeword);
+	}
+	
+	@Test
+	public void testPreprocess(){
+		String text = "mäl söhün öb tatßächlich alles Örsetzt Ürd.";
+		System.out.println(Cryptographer.normalize(text));
+				
+	}
+	
 	/**
 	 * Test to show how Characters were represented in Java
 	 */
@@ -63,7 +88,7 @@ public class CryptoTests {
 	 */
 	@Test
 	public void encodeVigenere(){
-		String toencrypt = "malsehenobmandashiererkennt";
+		String toencrypt = "boxkampfschilderung";
 		String encrypted = Polyalphabetic.encryptVigenere(toencrypt, "hund");
 		Monoaphabetic.testAllROT(encrypted);
 	}
@@ -73,7 +98,7 @@ public class CryptoTests {
 	 */
 	@Test
 	public void decodeVigenere(){
-		String toencrypt = "malsehenobmandashiererkennt";
+		String toencrypt = "boxkampfschilderung"; 
 		String encrypted = Polyalphabetic.encryptVigenere(toencrypt, "hund");
 		String decoded = Polyalphabetic.decodeVigenere(encrypted, "hund");
 		System.out.println(decoded);
