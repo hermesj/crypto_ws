@@ -5,7 +5,7 @@ import org.junit.Test;
 import crypto_workshop.Cryptographer;
 import crypto_workshop.Monoaphabetic;
 
-public class TestCodwordMonoAlph {
+public class TestMonoAlphCode {
 
 	@Test
 	public void testCodewordMono() {

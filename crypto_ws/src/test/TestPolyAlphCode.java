@@ -6,7 +6,7 @@ import crypto_workshop.Cryptographer;
 import crypto_workshop.Monoaphabetic;
 import crypto_workshop.Polyalphabetic;
 
-public class TestPolyalphabetic {
+public class TestPolyAlphCode {
 	
 	/**
 	 * Test Vigenere encryption
